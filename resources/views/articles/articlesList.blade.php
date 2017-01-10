@@ -12,7 +12,7 @@
                             <li class="list-group-item">
                                 <img class="center-block img-responsive" src="data:image/jpeg;base64,{{ base64_encode($profile['img']) }}"></li>
                             <li class="list-group-item">{{ $profile->last_name . ' ' . $profile->first_name . ' ' .$profile->middle_name }}</li>
-                            <li class="list-group-item">投稿数：15</li>
+                            <li class="list-group-item">投稿数：{{ $articles->count() }}</li>
                         </ul>
                     </div>
                     {{-- END userInfo(icon/userName) --}}
@@ -53,8 +53,14 @@
                                                     </div>
                                                 </div>
                                                 
+                                                {{-- <div class="form-group">
+                                                    <div class="col-md-4">
+                                                        <input type="button" class="btn btn-info form-control" value="">
+                                                    </div>
+                                                </div> --}}
+                                                
                                                 <div class="form-group">
-                                                    <div class="col-md-10 col-md-offset-1">
+                                                    <div class="col-md-8">
                                                         <input type="submit" class="btn btn-info form-control" value="Save">
                                                     </div>
                                                 </div>
@@ -72,6 +78,7 @@
         
         
         <div class="col-md-9 col-xs-12">
+            @if(count($articles) > 0)
             {{-- content --}}
                 <ul class="list-group">
                 @foreach($articles as $article)
@@ -147,6 +154,13 @@
                 @endforeach
                 </ul>
             {{-- END content --}}
+            @else
+                <div class="panel-back blog">
+                    <div class="panel-trans">
+                        <h3 class="text-center">投稿はありません。</h3>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </div>

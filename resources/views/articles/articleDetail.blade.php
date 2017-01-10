@@ -14,8 +14,8 @@
                         <ul class="list-group list-unstyled text-center">
                             <li class="list-group-item">
                                 <img class="center-block img-responsive" src="data:image/jpeg;base64,{{ base64_encode($poster_profile['img']) }}"></li>
-                            <li class="list-group-item">{{ $poster_profile->last_name }}{{ $poster_profile->middle_name }}{{ $poster_profile->first_name }}</li>
-                            <li class="list-group-item">投稿数：15</li>
+                            <li class="list-group-item"><a href="{{ url('profile/' . $poster_profile->user->username) }}">{{ $poster_profile->last_name }}{{ $poster_profile->middle_name }}{{ $poster_profile->first_name }}</a></li>
+                            <li class="list-group-item">投稿数：{{ $articles_count }}</li>
                         </ul>
                     </div>
                     {{-- END userInfo(icon/userName) --}}

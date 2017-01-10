@@ -92,7 +92,7 @@
             <li class="list-group-item overflow-wrap">
               <a href="{{ url('article/detail/' . $article->id) }}">{{$article->title}}<br></a>
               by <a href="{{ url('profile/' . $article->user->username) }}">{{$article->user->profile->last_name . ' ' . $article->user->profile->first_name}}</a>
-              <br>blg <a href="{{ url('article/' . $article->user->id) }}">{{$article->user->username}}</a>
+              <br>blg <a href="{{ url('article/' . $article->user->username) }}">{{$article->user->username}}</a>
               </li>
             <br>
             @endforeach

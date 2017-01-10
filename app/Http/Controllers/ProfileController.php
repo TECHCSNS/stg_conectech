@@ -72,12 +72,15 @@ class ProfileController extends Controller
         $img->resize(null, 100, function ($constraint) {
             $constraint->aspectRatio();
         });
-
+        
+        $img->resize(100, 100);
+        $thumbnail = $img->encode('jpeg');
         
         $request->user()->profile()->create([
             'user_id' => \Auth::user()->id,
             'permission' => 2,
             'img' => $requimg,
+            'thumbnail' => $thumbnail,
             'first_name' => $request->first_name,
             'middle_name' => $request->middle_name,
             'last_name' => $request->last_name,
@@ -158,8 +161,11 @@ class ProfileController extends Controller
             $img = Image::make($file);
             $img->resize(300, 300);
             $requimg = $img->encode('jpeg');
+            $img->resize(100, 100);
+            $thumbnail = $img->encode('jpeg');
         }else{
             $requimg = \Auth::User()->profile->img;
+            $thumbnail = \Auth::User()->profile->thumbnail;
         }
         
         
@@ -168,6 +174,7 @@ class ProfileController extends Controller
             'user_id' => \Auth::user()->id,
             'permission' => 2,
             'img' => $requimg,
+            'thumbnail' => $thumbnail,
             'first_name' => $request->first_name,
             'middle_name' => $request->middle_name,
             'last_name' => $request->last_name,

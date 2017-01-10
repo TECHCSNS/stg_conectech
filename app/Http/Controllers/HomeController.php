@@ -6,6 +6,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 
 use App\Article;
+use DB;
 use App\Tweet;
 
 class HomeController extends Controller
@@ -33,11 +34,18 @@ class HomeController extends Controller
     
     public function timeline()
     {   
+        DB::connection()->enableQueryLog();
+        
         $profile = \Auth::user()->profile;
         
         $tweets = Tweet::all();
         
         $articles = Article::orderBy('updated_at','desc')->paginate(5);
+        
+        $log = DB::getQueryLog();
+        
+        //print_r($log);
+        //exit();
         
         return view('timeline',compact('profile','articles','tweets'));
     }

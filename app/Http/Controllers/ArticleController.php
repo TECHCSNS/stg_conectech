@@ -37,14 +37,14 @@ class ArticleController extends Controller
     {
         $article = new Article($request->all());
         \Auth::User()->articles()->save($article);
-        return Redirect::to(URL::to('/article/' . \Auth::User()->id));
+        return Redirect::to(URL::to('/article/' . \Auth::User()->username));
     }
 
 
-    public function showList($id)
+    public function showList($username)
     {
-        $user = User::find($id);
-        $profile = User::find($id)->profile;
+        $user = User::where('username',$username)->first();
+        $profile = User::find($user->id)->profile;
         $articles = $user->articles()->orderBy('created_at', 'desc')->get();
         //dd($user);
         return view('articles.articlesList', [
@@ -61,7 +61,7 @@ class ArticleController extends Controller
         $article->content = $request->content;
         $article->save();
         
-        return Redirect::to(URL::to('/article/' . \Auth::User()->id));
+        return Redirect::to(URL::to('/article/' . \Auth::User()->username));
     }
 
 
@@ -70,7 +70,7 @@ class ArticleController extends Controller
         $article = Article::findOrFail($id);
         $article->delete();
         
-        return Redirect::to(URL::to('/article/' . \Auth::User()->id));
+        return Redirect::to(URL::to('/article/' . \Auth::User()->username));
     }
     
     
@@ -78,13 +78,16 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
         $poster_id = $article->user_id;
-        $poster_profile = User::find($poster_id)->profile;
+        $poster_user = User::find($poster_id);
+        $poster_profile = $poster_user->profile;
+        $articles_count = $poster_user->articles()->count();
         $comments = ArticleComment::where('article_id', $id)->orderBy('created_at', 'desc')->get();
         
         return view('articles.articleDetail', [
             "poster_profile" => $poster_profile,
             "article"  => $article,
             "comments" => $comments,
+            "articles_count" => $articles_count,
         ]);
     }
     

@@ -115,7 +115,7 @@
                         <div class="form-group{{ $errors->has('birth') ? ' has-error' : '' }}">
                             {!! Form::label('birth[必須]', null, ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">
-                                {!! Form::date('birth', old('birth') != null ? old('birth') : isset($profile) ? $profile->birth->format('Y-m-d') : '1990-01-01', ['class' => 'form-control', 'placeholder' => 'birth']) !!}
+                                {!! Form::date('birth', old('birth') != null ? old('birth') : isset($profile) ? $profile->birth->format('Y-m-d') : '2000-01-01', ['class' => 'form-control', 'placeholder' => 'birth']) !!}
                                 @if ($errors->has('birth'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('birth') }}</strong>

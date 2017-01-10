@@ -12,8 +12,10 @@
 */
 
 Route::get('/redis',function(){
-   print_r(app()->make('redis')); //Redisの確認
-})->middleware('admin');
+   $redis = app()->make('redis');
+   $view = $redis->incr('views');
+   return "The redis value " . $redis->get('hi') . " has " . $view;//Redisの確認
+});
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,8 +28,9 @@ Route::get('profile/create','ProfileController@create');
 Route::get('profile/{username}','ProfileController@show');
 Route::resource('profile', 'ProfileController');
 Route::post('/tweet','TweetController@store');
+
 Route::get('blog','ArticleController@index');
-Route::get('/article/{id}', 'ArticleController@showList');
+Route::get('/article/{username}', 'ArticleController@showList');
 Route::get('/article/detail/{id}', 'ArticleController@showDetail');
 Route::post('/article', 'ArticleController@store');
 Route::post('/article/comment', 'ArticleController@commentStore');

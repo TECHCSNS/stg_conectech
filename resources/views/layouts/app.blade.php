@@ -46,7 +46,7 @@
                 <ul class="nav navbar-nav">
                     <li {{{ (Request::is('profile') ? 'class=active' : '') }}}><a href="{{ url('/profile') }}">プロフィール</a></li>
                     <li {{{ (Request::is('timeline') ? 'class=active' : '') }}}><a href="{{ url('/timeline') }}">TL</a></li>
-                    <li {{{ (Request::is('blog') ? 'class=active' : '') }}}><a href="{{ url('/article/' . Auth::user()->id) }}">ブログ</a></li>
+                    <li {{{ (Request::is('blog') ? 'class=active' : '') }}}><a href="{{ url('/article/' . Auth::user()->username) }}">ブログ</a></li>
                 </ul>
             @else
                 <div class="collapse navbar-collapse col-sm-3 col-md-3 col-lg-2" id="app-navbar-collapse"　id="myNavbar">

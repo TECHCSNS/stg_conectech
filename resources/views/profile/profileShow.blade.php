@@ -16,7 +16,7 @@
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             <img src="data:image/jpeg;base64,{{base64_encode($profile['img'])}}" alt="profile Pic" class=" img-responsive">
                         </div>
-                        <div class="col-xs-12 col-sm-8 col-md-8">
+                        <div class="col-xs-12 col-sm-8 col-md-8" id="sampleAccordion">
                             <div class="row">
                                 <div class="col-md-6">
                                     <h2>
@@ -35,50 +35,63 @@
 
                             <hr/>
 
-                            <div class="row">
-                                <div class="col-md-6"><a href="#">フォロー：2</a></div>
-                                <div class="col-md-6"><a href="#">フォロワー：2</a></div>
+                            <ul class="nav nav-pills panel-trans">
+                            	<li><a data-toggle="collapse" href="#collapseSample1" data-parent="#sampleAccordion">詳細</a></li>
+                            	<li><a data-toggle="collapse" href="#collapseSample2" data-parent="#sampleAccordion">
+                            	    <ruby>
+                                        10<rp>(</rp><rt>フォロー</rt><rp>)</rp>
+                                    </ruby></a>
+                                </li>
+                            	<li><a data-toggle="collapse" href="#collapseSample3" data-parent="#sampleAccordion">
+                            	    <ruby>
+                                        10<rp>(</rp><rt>フォロワー</rt><rp>)</rp>
+                                    </ruby></a>
+                                </li>
+                            	<li><a href="{{ url("/article/".$profile->user->username) }}">ブログ</a></li>
+                            </ul>
+                            
+                            <div id="sampleAccordion">
+                            	<div id="collapseSample1" class="collapse">
+                            		<table class="table">
+                                        <tr>
+                                            <th>専攻</th>
+                                            <td>{{ $profile->major }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>出身</th>
+                                            <td>{{ $profile->born_place }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>誕生日</th>
+                                            <td>{{ $profile->birth->format('Y年m月d日') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>自己紹介</th>
+                                            <td>{!! str_replace('&lt;br /&gt;', '<br>', e( nl2br($profile->about_me) ,ENT_QUOTES) ) !!}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>趣味</th>
+                                            <td>{!! str_replace('&lt;br /&gt;', '<br>', e( nl2br($profile->hobby) ,ENT_QUOTES) ) !!}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>技術</th>
+                                            <td>{!! str_replace('&lt;br /&gt;', '<br>', e( nl2br($profile->technic) ,ENT_QUOTES) ) !!}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>得意分野</th>
+                                            <td>{!! str_replace('&lt;br /&gt;', '<br>', e( nl2br($profile->specialty) ,ENT_QUOTES) ) !!}</td>
+                                        </tr>
+        
+                                    </table>
+                            	</div>
+                            	<div id="collapseSample2" class="collapse">
+                            		<p>メニューＢの内容</p>
+                            	</div>
+                            	<div id="collapseSample3" class="collapse">
+                            		<p>メニューＣの内容</p>
+                            	</div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6"><a href="{{ url("/article/".$profile->user_id) }}">ブログ</a></div>
-                            </div>
-
                         </div>
-                      
-                        <div class="col-xs-12 col-sm-12 table_wrap" style="margin-top:30px;">
-                            <table class="table">
-                                <tr>
-                                    <th>専攻</th>
-                                    <td>{{ $profile->major }}</td>
-                                </tr>
-                                <tr>
-                                    <th>出身</th>
-                                    <td>{{ $profile->born_place }}</td>
-                                </tr>
-                                <tr>
-                                    <th>誕生日</th>
-                                    <td>{{ $profile->birth->format('Y年m月d日') }}</td>
-                                </tr>
-                                <tr>
-                                    <th>自己紹介</th>
-                                    <td>{!! str_replace('&lt;br /&gt;', '<br>', e( nl2br($profile->about_me) ,ENT_QUOTES) ) !!}</td>
-                                </tr>
-                                <tr>
-                                    <th>趣味</th>
-                                    <td>{!! str_replace('&lt;br /&gt;', '<br>', e( nl2br($profile->hobby) ,ENT_QUOTES) ) !!}</td>
-                                </tr>
-                                <tr>
-                                    <th>技術</th>
-                                    <td>{!! str_replace('&lt;br /&gt;', '<br>', e( nl2br($profile->technic) ,ENT_QUOTES) ) !!}</td>
-                                </tr>
-                                <tr>
-                                    <th>得意分野</th>
-                                    <td>{!! str_replace('&lt;br /&gt;', '<br>', e( nl2br($profile->specialty) ,ENT_QUOTES) ) !!}</td>
-                                </tr>
-
-                            </table>
-                        </div><!-- .table-wrap -->
-                        
                     </div>
                 </div>
             </div> <!-- .panel -->
