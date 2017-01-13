@@ -8,7 +8,7 @@
                 <div class="panel-heading">プロフィール編集</div>
 
                 <div class="panel-body panel-back">
-                    {!! Form::open(array('url' => isset($profile) ? url('/profile/'.Auth::user()->id) : url('/profile'), 'files'=>true, 'class'=>'form-horizontal')) !!}
+                    {!! Form::open(array('url' => isset($profile) ? url('/profile/'.Auth::user()->username) : url('/profile'), 'files'=>true, 'class'=>'form-horizontal')) !!}
                     <!--<form class="form-horizontal" role="form" method="POST" action="{{ isset($profile) ? url('/profile/'.Auth::user()->id) : url('/profile') }}">-->
                         {{ isset($profile) ? Form::hidden('_method', 'PUT') : '' }}
                         
@@ -115,7 +115,7 @@
                         <div class="form-group{{ $errors->has('birth') ? ' has-error' : '' }}">
                             {!! Form::label('birth[必須]', null, ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">
-                                {!! Form::date('birth', old('birth') != null ? old('birth') : isset($profile) ? $profile->birth->format('Y-m-d') : '2000-01-01', ['class' => 'form-control', 'placeholder' => 'birth']) !!}
+                                {!! Form::date('birth', isset($profile) ? $profile->birth->format('Y-m-d') : '2000-01-01', ['class' => 'form-control', 'placeholder' => 'birth']) !!}
                                 @if ($errors->has('birth'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('birth') }}</strong>
@@ -124,17 +124,22 @@
                             </div>
                         </div>
                         
-                        <div class="form-group">
+                        <div class="form-group {{ $errors->has('sex') ? ' has-error' : '' }}">
                             <div class="col-md-6 col-md-push-4">
                                 <label class="form-check-inline">
-                                    {{ Form::radio('sex', 0, (isset($profile) ? $profile->sex : old('sex') == 0), ['class' => 'form-check-input']) }}
+                                    {{ Form::radio('sex', 0, (isset($profile) ? ($profile->sex === 0 ? true : false) : false), ['class' => 'form-check-input']) }}
                                     Man
                                 </label>
                                 
                                 <label class="form-check-inline">
-                                    {{ Form::radio('sex', 1, (isset($profile) ? $profile->sex : old('sex') == 1), ['class' => 'form-check-input']) }}
+                                    {{ Form::radio('sex', 1, (isset($profile) ? ($profile->sex === 1 ? true : false) : false), ['class' => 'form-check-input']) }}
                                     Woman
                                 </label>
+                                @if ($errors->has('sex'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('sex') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
                         

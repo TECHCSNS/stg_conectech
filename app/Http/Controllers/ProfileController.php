@@ -55,6 +55,7 @@ class ProfileController extends Controller
         //
         $this->validate($request, [
             'img' => 'required',
+            'sex' => 'required',
             'first_name' => 'required|max:255',
             'first_kana' => 'max:255',
             'middle_name' => 'max:255',
@@ -68,13 +69,14 @@ class ProfileController extends Controller
         
         $file = $request->img;
         $img = Image::make($file);
-        $requimg = $img->encode('jpeg');
-        $img->resize(null, 100, function ($constraint) {
-            $constraint->aspectRatio();
-        });
-        
-        $img->resize(100, 100);
-        $thumbnail = $img->encode('jpeg');
+        $img->fit(300, 300, function ($constraint) {
+            $constraint->upsize();
+        },'top');
+        $requimg = $img->encode();
+        $img->fit(100, 100, function ($constraint) {
+            $constraint->upsize();
+        },'top');
+        $thumbnail = $img->encode();
         
         $request->user()->profile()->create([
             'user_id' => \Auth::user()->id,
@@ -159,10 +161,14 @@ class ProfileController extends Controller
         $file = $request->img;
         if($file != null){
             $img = Image::make($file);
-            $img->resize(300, 300);
-            $requimg = $img->encode('jpeg');
-            $img->resize(100, 100);
-            $thumbnail = $img->encode('jpeg');
+            $img->fit(300, 300, function ($constraint) {
+                $constraint->upsize();
+            },'top');
+            $requimg = $img->encode();
+            $img->fit(100, 100, function ($constraint) {
+                $constraint->upsize();
+            },'top');
+            $thumbnail = $img->encode();
         }else{
             $requimg = \Auth::User()->profile->img;
             $thumbnail = \Auth::User()->profile->thumbnail;
@@ -191,7 +197,7 @@ class ProfileController extends Controller
             'specialty' => $request->specialty,
         ]);
         
-        return view('profile.profileShow', ['profile' => $profile]);
+        return redirect('/profile');
     }
 
     /**

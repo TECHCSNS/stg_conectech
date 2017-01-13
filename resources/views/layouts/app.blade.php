@@ -30,7 +30,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 
-                <a class="navbar-brand" style="padding:0" href="{{ url('/timeline') }}"><img src="{{URL::asset('/img/logo.png')}}"></a>
+                <a class="navbar-brand" style="padding:0" href="{{ url('/timeline') }}"><img src="{{ url('/img/logo.png')}}"></a>
                 @if (Auth::guest())
                 <a class="navbar-brand font_si" href="{{ url('/') }}">
                 @else
