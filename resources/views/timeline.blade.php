@@ -34,17 +34,17 @@
         <div class="col-md-6 col-sm-8 col-xs-12 panel-back">
           <div class="post_list panel-trans post_form" style="padding-bottom:0;margin-top:10px;padding-right:25px;padding-left:20px">
             <div class="row noright">
-                @foreach (\Auth::User()->all() as $user)
-                @if($user->id != \Auth::User()->id)
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 noleft noright">
-                <a href="{{ url('profile/' . $user->username) }}">
-                  <img style="padding-left:5px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 noright" src="data:image/jpeg;base64,{{ base64_encode($user->profile['img']) }}">
-                </a>
-                <a href="{{ url('profile/' . $user->username) }}">
-                  <p class="col-lg-12 col-md-12 col-sm-12 col-xs-12 noright noleft text-center resp">{{$user->profile->last_name . ' ' . $user->profile->first_name}}</p>
-                </a>
-                </div>
-                @endif
+                @foreach ($profiles as $user)
+                  @if($user->id != \Auth::User()->id)
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 noleft noright">
+                  <a href="{{ url('profile/' . $user->username) }}">
+                    <img style="padding-left:5px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 noright" src="data:image/jpeg;base64,{{ base64_encode($user->profile['img']) }}">
+                  </a>
+                  <a href="{{ url('profile/' . $user->username) }}">
+                    <p class="col-lg-12 col-md-12 col-sm-12 col-xs-12 noright noleft text-center resp">{{$user->profile->last_name . ' ' . $user->profile->first_name}}</p>
+                  </a>
+                  </div>
+                  @endif
                 @endforeach
             </div>
             <p class="text-right">もっと見る</p>

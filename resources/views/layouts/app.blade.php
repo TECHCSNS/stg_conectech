@@ -30,11 +30,15 @@
                     <span class="icon-bar"></span>
                 </button>
                 
-                <a class="navbar-brand" style="padding:0" href="{{ url('/timeline') }}"><img src="{{ url('/img/logo.png')}}"></a>
                 @if (Auth::guest())
+                <a class="navbar-brand" style="padding:0" href="{{ url('/timeline') }}"><img src="{{ url('/img/logo.png')}}"></a>
                 <a class="navbar-brand font_si" href="{{ url('/') }}">
-                @else
+                @elseif (isset(Auth::user()->profile))
+                <a class="navbar-brand" style="padding:0" href="{{ url('/timeline') }}"><img src="{{ url('/img/logo.png')}}"></a>
                 <a class="navbar-brand font_si" href="{{ url('/timeline') }}">
+                @else
+                <a class="navbar-brand" style="padding:0"><img src="{{ url('/img/logo.png')}}"></a>
+                <a class="navbar-brand font_si">
                 @endif
                     ConecTECH  
                 </a>
@@ -43,11 +47,13 @@
             @if (!Auth::guest())
             <div class="collapse navbar-collapse col-sm-6 col-md-5 col-lg-4" id="app-navbar-collapse"　id="myNavbar">
                 <!-- Left Side Of Navbar -->
+                @if (isset(Auth::user()->profile))
                 <ul class="nav navbar-nav">
                     <li {{{ (Request::is('profile') ? 'class=active' : '') }}}><a href="{{ url('/profile') }}">プロフィール</a></li>
                     <li {{{ (Request::is('timeline') ? 'class=active' : '') }}}><a href="{{ url('/timeline') }}">TL</a></li>
                     <li {{{ (Request::is('blog') ? 'class=active' : '') }}}><a href="{{ url('/article/' . Auth::user()->username) }}">ブログ</a></li>
                 </ul>
+                @endif
             @else
                 <div class="collapse navbar-collapse col-sm-3 col-md-3 col-lg-2" id="app-navbar-collapse"　id="myNavbar">
             @endif

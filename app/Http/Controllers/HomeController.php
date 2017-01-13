@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Article;
 use DB;
+use App\User;
 use App\Tweet;
 
 class HomeController extends Controller
@@ -42,11 +43,13 @@ class HomeController extends Controller
         
         $articles = Article::orderBy('updated_at','desc')->paginate(5);
         
-        $log = DB::getQueryLog();
+        //$log = DB::getQueryLog();
+        
+        $profiles = User::has('profile')->get();
         
         //print_r($log);
         //exit();
         
-        return view('timeline',compact('profile','articles','tweets'));
+        return view('timeline',compact('profile','articles','tweets','profiles'));
     }
 }
